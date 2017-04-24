@@ -12,7 +12,7 @@ int main(void)
 
     char s[10];
 
-    printf("\n\n");
+    printf("\n");
     while (1) {
     	scanf("%s", s);
     	if (!strcmp(s, "create") || !strcmp(s, "cr")) {
@@ -23,18 +23,18 @@ int main(void)
     		while(scanf("%d", &val))
     			queue_put(q, val);
     	} else if (!strcmp(s, "get") || !strcmp(s, "g")) {
-    		int n = 0;
-    		scanf("%d", &n);
-    		for (int i = 0; i < n; ++i)
-    			printf("%d\n", queue_get(q));
-    		printf("\n\n");
-    	} else if (!strcmp(s, "getall") || !strcmp(s, "ga")) {
-
-    	} else if (!strcmp(s, "clear") || !strcmp(s, "cl")) {
-    		while (!queue_is_empty(q))
-    			queue_get(q);
+    		printf("%d\n", queue_get(q));
+    	} else if (!strcmp(s, "print") || !strcmp(s, "p")) {
+    		queue_print(q);
+    	} else if (!strcmp(s, "new")) {
+    		queue_destroy(&q);
+    		int cap = 0;
+    		scanf("%d", &cap);
+    		q = queue_create(cap);
     	} else if (!strcmp(s, "sort") || !strcmp(s, "s")) {
     		// Bubble Sort
+    	} else if (!strcmp(s, "help")) {
+
     	} else if (!strcmp(s, "quit") || !strcmp(s, "q")) {
     		queue_destroy(&q);
     		break;

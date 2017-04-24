@@ -27,12 +27,14 @@ Queue queue_create(int queue_size)
 void queue_put(Queue q, Item value)
 {
     q->data[q->last++] = value;
+    printf("%d == (%d %d)\n", value, q->last - 1, q->head);
     q->last %= q->size;
 }
 
 Item queue_get(Queue q)
 {
     q->head %= q->size;
+    printf("%d == (%d %d)\n", q->data[q->head], q->last, q->head);
     return q->data[q->head++];
 }
 
@@ -45,4 +47,22 @@ void queue_destroy(Queue *q)
 {
     free((*q)->data);
     free(*q);
+}
+
+void queue_print(Queue q)
+{
+	if (q->head % q->size < q->last) {
+		for (int i = q->head % q->size; i < q->last; ++i) {
+			//printf("[%d %d]\n", i, q->last);
+			printf("%d ", q->data[i]);			
+		}
+
+		printf("\n\n");
+	} else {
+		for (int i = q->head; i < q->size; ++i)
+			printf("%d ", q->data[i]);
+		for (int i = 0; i < q->last; ++i)
+			printf("%d ", q->data[i]);
+		printf("\n\n");
+	}
 }
