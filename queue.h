@@ -12,7 +12,9 @@ int queue_put(Queue q, Item value);
 Item queue_get(Queue q);
 bool queue_is_empty(Queue q);
 void queue_destroy(Queue *q);
-void queue_print(Queue q);
+int queue_print(Queue q);
+
 Item queue_first(Queue q);
+Item queue_last(Queue q);
 
 #endif

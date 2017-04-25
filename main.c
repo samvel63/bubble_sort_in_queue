@@ -4,7 +4,6 @@
 #include <string.h>
 
 #include "queue.h"
-#include "errors.h"
 
 #define SWAP(A, B) { Queue t = A; A = B; B = t; }
 
@@ -13,7 +12,6 @@ void queue_bubble_sort(Queue q_bas, int n)
     Queue q = queue_create(n);
     Queue q_sub = queue_create(n);
     while (!queue_is_empty(q_bas)) {
-
         Item tmp = queue_get(q_bas);
         bool is_inserted = false;
         while (!queue_is_empty(q)) {
@@ -51,11 +49,12 @@ int main(void)
     	} else if (!strcmp(s, "put") || !strcmp(s, "p")) {
     		while(scanf("%d", &val))
     			if(queue_put(q, val))
-                    fprintf(stderr, "\nОчередь переполнена.\n\n");
+                    fprintf(stderr, "\nНевозможно добавить цифру %d в очередь, т.к. она переполнена.\n\n", val);
     	} else if (!strcmp(s, "get") || !strcmp(s, "g")) {
     		queue_get(q);
     	} else if (!strcmp(s, "print") || !strcmp(s, "pr")) {
-    		queue_print(q);
+    		if(queue_print(q))
+                fprintf(stderr, "\nОчередь пуста.\n\n");
     	} else if (!strcmp(s, "new")) {
     		queue_destroy(&q);
     		scanf("%d", &cap);
