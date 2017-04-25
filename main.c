@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
 #include "queue.h"
+
+
 
 int main(void)
 {
 	Queue q;
     int val;
-
-    char s[10];
+    char s[7];
 
     printf("\n");
     while (1) {
-    	scanf("%s", s);
+    	scanf("%6s", s);
     	if (!strcmp(s, "create") || !strcmp(s, "cr")) {
     		int cap = 0;
     		scanf("%d", &cap);
@@ -32,7 +32,7 @@ int main(void)
     		scanf("%d", &cap);
     		q = queue_create(cap);
     	} else if (!strcmp(s, "sort") || !strcmp(s, "s")) {
-    		// Bubble Sort
+    		queue_bubble_sort(q);
     	} else if (!strcmp(s, "help")) {
 
     	} else if (!strcmp(s, "quit") || !strcmp(s, "q")) {

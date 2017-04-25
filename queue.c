@@ -11,6 +11,26 @@ typedef struct _queue {
     Item *data;
 };
 
+void queue_bubble_sort(Queue q)
+{
+    printf("%d  %d\n", q->head, q->last);
+
+    //if (q->last > q->head) {
+        for (int i = q->last - 1; i >= q->head % q->size; --i) {
+            for (int j = q->head % q->size; j < i; ++j) {
+                printf("i = %d, j = %d\n", i, j);
+                if (q->data[j] > q->data[j + 1]) {
+                    printf("dfds\n");
+                    int tmp = q->data[j + 1];
+                    q->data[j + 1] = q->data[j];
+                    q->data[j] = tmp;                    
+                }
+
+            }
+        }
+    //}
+}
+
 Queue queue_create(int queue_size)
 {
     Queue q = (Queue) malloc(sizeof(*q));

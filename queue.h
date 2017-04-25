@@ -10,5 +10,6 @@ Item queue_get(Queue q);
 bool queue_is_empty(Queue q);
 void queue_destroy(Queue *q);
 void queue_print(Queue q);
+void queue_bubble_sort(Queue q);
 
 #endif
