@@ -11,26 +11,6 @@ typedef struct _queue {
     Item *data;
 };
 
-void queue_bubble_sort(Queue q)
-{
-    printf("%d  %d\n", q->head, q->last);
-
-    //if (q->last > q->head) {
-        for (int i = q->last - 1; i >= q->head % q->size; --i) {
-            for (int j = q->head % q->size; j < i; ++j) {
-                printf("i = %d, j = %d\n", i, j);
-                if (q->data[j] > q->data[j + 1]) {
-                    printf("dfds\n");
-                    int tmp = q->data[j + 1];
-                    q->data[j + 1] = q->data[j];
-                    q->data[j] = tmp;                    
-                }
-
-            }
-        }
-    //}
-}
-
 Queue queue_create(int queue_size)
 {
     Queue q = (Queue) malloc(sizeof(*q));
@@ -44,17 +24,25 @@ Queue queue_create(int queue_size)
     return q;
 }
 
-void queue_put(Queue q, Item value)
+int queue_put(Queue q, Item value)
 {
+    if ((q->last + 1) % q->size == q->head)
+        return QUEUE_ERROR;
+
     q->data[q->last++] = value;
-    printf("%d == (%d %d)\n", value, q->last - 1, q->head);
     q->last %= q->size;
+
+    return QUEUE_SUCCESS;
 }
 
 Item queue_get(Queue q)
 {
+    if (q->head % q->size == q->last) {
+        fprintf(stderr, "Очередь пуста.\n\n");
+        return QUEUE_ERROR;
+    }
+
     q->head %= q->size;
-    printf("%d == (%d %d)\n", q->data[q->head], q->last, q->head);
     return q->data[q->head++];
 }
 
@@ -69,14 +57,22 @@ void queue_destroy(Queue *q)
     free(*q);
 }
 
+Item queue_first(Queue q)
+{
+    return q->data[q->head % q->size];
+}
+
+int queue_size(Queue q)
+{
+    return q->size;
+}
+
 void queue_print(Queue q)
 {
+    printf("\n");
 	if (q->head % q->size < q->last) {
-		for (int i = q->head % q->size; i < q->last; ++i) {
-			//printf("[%d %d]\n", i, q->last);
+		for (int i = q->head % q->size; i < q->last; ++i)
 			printf("%d ", q->data[i]);			
-		}
-
 		printf("\n\n");
 	} else {
 		for (int i = q->head; i < q->size; ++i)
