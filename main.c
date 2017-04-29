@@ -7,6 +7,15 @@
 
 #define SWAP(A, B) { Queue t = A; A = B; B = t; }
 
+void queue_reverse(Queue q)
+{
+    if (queue_is_empty(q))
+        return;
+    Item n = queue_get(q);
+    queue_reverse(q);
+    queue_put(q, n);
+}
+
 void queue_print(Queue q)
 {
     if (queue_is_empty(q))
@@ -70,6 +79,7 @@ int main(void)
                 continue;
             }
             queue_print(q);
+            queue_reverse(q);
             printf("\n\n");
     	} else if (!strcmp(s, "new")) {
     		queue_destroy(&q);
