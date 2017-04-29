@@ -37,7 +37,7 @@ int queue_put(Queue q, Item value)
 
 Item queue_get(Queue q)
 {
-    if (q->head % q->size == q->last % q->size) {
+    if (queue_is_empty(q)) {
         fprintf(stderr, "Очередь пуста.\n\n");
         return QUEUE_ERROR;
     }
@@ -65,25 +65,4 @@ Item queue_first(Queue q)
 Item queue_last(Queue q)
 {
     return q->data[q->last % q->size];
-}
-
-int queue_print(Queue q)
-{
-    if (q->head % q->size == q->last % q->size)
-        return QUEUE_ERROR;
-
-    printf("\n");
-	if (q->head % q->size < q->last) {
-		for (int i = q->head % q->size; i < q->last; ++i)
-			printf("%d ", q->data[i]);			
-		printf("\n\n");
-	} else {
-		for (int i = q->head; i < q->size; ++i)
-			printf("%d ", q->data[i]);
-		for (int i = 0; i < q->last; ++i)
-			printf("%d ", q->data[i]);
-		printf("\n\n");
-	}
-
-    return QUEUE_SUCCESS;
 }

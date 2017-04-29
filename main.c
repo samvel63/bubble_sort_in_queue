@@ -7,6 +7,17 @@
 
 #define SWAP(A, B) { Queue t = A; A = B; B = t; }
 
+void queue_print(Queue q)
+{
+    if (queue_is_empty(q))
+        return;
+
+    Item n = queue_get(q);
+    printf("%d ", n);
+    queue_print(q);
+    queue_put(q, n);
+}
+
 void queue_bubble_sort(Queue q_bas, int n)
 {
     Queue q = queue_create(n);
@@ -41,6 +52,7 @@ int main(void)
     char s[7];
 
     printf("\nНаберите команду `help`, чтобы узнать команды, используемые в программе\n\n");
+    printf("Для того, чтобы работать с программой, необходимо сначала создать очередь, для этого обратитесь к помощи команды `help`.\n\n");
     while (1) {
     	scanf("%6s", s);
     	if (!strcmp(s, "create") || !strcmp(s, "c")) {
@@ -51,10 +63,14 @@ int main(void)
     			if(queue_put(q, val))
                     fprintf(stderr, "\nНевозможно добавить цифру %d в очередь, т.к. она переполнена.\n\n", val);
     	} else if (!strcmp(s, "get") || !strcmp(s, "g")) {
-    		queue_get(q);
+    		printf("Из очереди выведен элемент %d\n\n", queue_get(q));
     	} else if (!strcmp(s, "print") || !strcmp(s, "pr")) {
-    		if(queue_print(q))
+    		if(queue_is_empty(q)) {
                 fprintf(stderr, "\nОчередь пуста.\n\n");
+                continue;
+            }
+            queue_print(q);
+            printf("\n\n");
     	} else if (!strcmp(s, "new")) {
     		queue_destroy(&q);
     		scanf("%d", &cap);
