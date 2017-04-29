@@ -11,6 +11,7 @@ void queue_reverse(Queue q)
 {
     if (queue_is_empty(q))
         return;
+    
     Item n = queue_get(q);
     queue_reverse(q);
     queue_put(q, n);
